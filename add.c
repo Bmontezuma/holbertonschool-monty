@@ -1,29 +1,20 @@
 #include "monty.h"
 
 /**
- * push - Function to push a node to the stack
+ * add - Function to add the top two elements of the stack
  * @stack: Double pointer to the head of the stack
- * @value: Value to be pushed onto the stack
+ * @line_number: Line number of the opcode in the Monty file
  *
  * Return: Void
  */
-void push(stack_t **stack, int value)
+void add(stack_t **stack, unsigned int line_number)
 {
-    stack_t *new_node = malloc(sizeof(stack_t));
-
-    if (new_node == NULL)
+    if (*stack == NULL || (*stack)->next == NULL)
     {
-        handle_error(MALLOC_ERROR, 0);
+        handle_error(STACK_TOO_SHORT, line_number);
         return;
     }
 
-    new_node->n = value;
-    new_node->prev = NULL;
-    new_node->next = *stack;
-
-    if (*stack != NULL)
-        (*stack)->prev = new_node;
-
-    *stack = new_node;
+    (*stack)->next->n += (*stack)->n;
+    pop(stack, line_number);
 }
-
