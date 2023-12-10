@@ -10,7 +10,7 @@ void handle_error(ErrorType error_type, unsigned int line_number)
 		break;
 	case UNKNOWN_INSTRUCTION_ERROR:
 		fprintf(stderr, "L%u: unknown instruction\n", line_number);
-        	break;
+	break;
 	case MALLOC_ERROR:
 		fprintf(stderr, "Error: malloc failed\n");
 		break;

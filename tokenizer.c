@@ -11,40 +11,40 @@
  */
 char **tokenize(char *line)
 {
-    const char delimiters[] = " \t\n";
-    char **tokens = NULL;
-    char *token = strtok(line, delimiters);
-    int token_count = 0;
+	const char delimiters[] = " \t\n";
+	char **tokens = NULL;
+	char *token = strtok(line, delimiters);
+	int token_count = 0;
 
-    while (token != NULL)
-    {
-        tokens = realloc(tokens, sizeof(char *) * (token_count + 1));
-        if (tokens == NULL)
-        {
-            perror("Failed to allocate memory for tokens");
-            exit(EXIT_FAILURE);
-        }
+	while (token != NULL)
+	{
+		tokens = realloc(tokens, sizeof(char *) * (token_count + 1));
+	if (tokens == NULL)
+	{
+		perror("Failed to allocate memory for tokens");
+		exit(EXIT_FAILURE);
+	}
 
-        tokens[token_count] = strdup(token);
-        if (tokens[token_count] == NULL)
-        {
-            perror("Failed to duplicate token");
-            exit(EXIT_FAILURE);
-        }
+	tokens[token_count] = strdup(token);
+	if (tokens[token_count] == NULL)
+	{
+		perror("Failed to duplicate token");
+		exit(EXIT_FAILURE);
+	}
 
-        token = strtok(NULL, delimiters);
-        token_count++;
-    }
+	token = strtok(NULL, delimiters);
+	token_count++;
+	}
 
-    tokens = realloc(tokens, sizeof(char *) * (token_count + 1));
-    if (tokens == NULL)
-    {
-        perror("Failed to allocate memory for tokens");
-        exit(EXIT_FAILURE);
-    }
-    tokens[token_count] = NULL;
+	tokens = realloc(tokens, sizeof(char *) * (token_count + 1));
+	if (tokens == NULL)
+	{
+	perror("Failed to allocate memory for tokens");
+	exit(EXIT_FAILURE);
+	}
+	tokens[token_count] = NULL;
 
-    return tokens;
+	return (tokens);
 }
 
 /**
@@ -53,10 +53,9 @@ char **tokenize(char *line)
  */
 void free_tokens(char **tokens)
 {
-    for (int i = 0; tokens[i] != NULL; i++)
-    {
-        free(tokens[i]);
-    }
-    free(tokens);
+	for (int i = 0; tokens[i] != NULL; i++)
+	{
+		free(tokens[i]);
+	}
+	free(tokens);
 }
-

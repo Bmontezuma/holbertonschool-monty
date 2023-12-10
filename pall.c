@@ -11,19 +11,19 @@
  */
 void opcode_pall(stack_t **stack, unsigned int line_number)
 {
-    (void)line_number;
+	(void)line_number;
 
-    if (*stack == NULL)
-    {
-        fprintf(stderr, "Stack is empty at line %u\n", line_number);
-        return;
-    }
+	if (*stack == NULL)
+	{
+	fprintf(stderr, "Stack is empty at line %u\n", line_number);
+	return;
+	}
 
-    stack_t *current = *stack;
+	stack_t *current = *stack;
 
-    while (current)
-    {
-        printf("%d\n", current->n);
-        current = current->next;
-    }
+	while (current)
+	{
+	printf("%d\n", current->n);
+	current = current->next;
+	}
 }

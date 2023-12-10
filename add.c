@@ -9,12 +9,12 @@
  */
 void add(stack_t **stack, unsigned int line_number)
 {
-    if (*stack == NULL || (*stack)->next == NULL)
-    {
-        handle_error(STACK_TOO_SHORT, line_number);
-        return;
-    }
+	if (*stack == NULL || (*stack)->next == NULL)
+	{
+		handle_error(STACK_TOO_SHORT, line_number);
+		return;
+	}
 
-    (*stack)->next->n += (*stack)->n;
-    pop(stack, line_number);
+	(*stack)->next->n += (*stack)->n;
+	pop(stack, line_number);
 }

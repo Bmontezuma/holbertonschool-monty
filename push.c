@@ -14,7 +14,7 @@ void push(stack_t **stack, int value)
 	if (new_node == NULL)
 	{
 	handle_error(MALLOC_ERROR, 0);
-	return;	
+	return;
 	}
 
 	new_node->n = value;
