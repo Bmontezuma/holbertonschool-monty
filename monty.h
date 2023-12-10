@@ -39,6 +39,7 @@ FILE_OPEN_ERROR,
 UNKNOWN_INSTRUCTION_ERROR,
 MALLOC_ERROR,
 STACK_TOO_SHORT,
+DIVIDE_BY_ZERO,
 } ErrorType;
 
 /* Prototypes */
@@ -51,6 +52,10 @@ void pint(stack_t **stack, unsigned int line_number);
 void pop(stack_t **stack, unsigned int line_number);
 void opcode_push(stack_t **stack, unsigned int line_number, char *value_str);
 void swap(stack_t **stack, unsigned int line_number);
+void sub(stack_t **stack, unsigned int line_number);
+void monty_div(stack_t **stack, unsigned int line_number);
+void mul(stack_t **stack, unsigned int line_number);
+void mod(stack_t **stack, unsigned int line_number);
 
 #endif /* MONTY_H */
 
