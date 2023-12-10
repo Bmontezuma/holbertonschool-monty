@@ -1,15 +1,28 @@
 #include "monty.h"
 
-void opcode_push(stack_t **stack, unsigned int line_number, char *value_str)
+/**
+ * push - Function to push a node to the stack
+ * @stack: Double pointer to the head of the stack
+ * @value: Value to be pushed onto the stack
+ *
+ * Return: Void
+ */
+void push(stack_t **stack, int value)
 {
-	int value;
-    
-	if (!value_str)
+	stack_t *new_node = malloc(sizeof(stack_t));
+
+	if (new_node == NULL)
 	{
-		handle_error(UNKNOWN_INSTRUCTION_ERROR, line_number);
+	handle_error(MALLOC_ERROR, 0);
+	return;	
 	}
 
-	value = atoi(value_str);
+	new_node->n = value;
+	new_node->prev = NULL;
+	new_node->next = *stack;
 
-	push(stack, value);
+	if (*stack != NULL)
+		(*stack)->prev = new_node;
+
+	*stack = new_node;
 }

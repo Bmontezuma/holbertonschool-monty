@@ -1,26 +1,29 @@
 #include "monty.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 /**
- * add - Adds top two elements of the stack
- * @stack: Pointer to top of the stack
- * @line_number: Line number in the Monty byte code file
+ * push - Function to push a node to the stack
+ * @stack: Double pointer to the head of the stack
+ * @value: Value to be pushed onto the stack
  *
- * This adds the top two elements of the stack.
- * If the stack contains less than two elements, it prints an error message
- * and exits with EXIT_FAILURE.
- * The result is stored in the second top element of the stack,
- * and the top element is removed.
+ * Return: Void
  */
-void add(stack_t **stack, unsigned int line_number)
+void push(stack_t **stack, int value)
 {
-	if (!stack || !*stack || !(*stack)->next)
+	stack_t *new_node = malloc(sizeof(stack_t));
+
+	if (new_node == NULL)
 	{
-		fprintf(stderr, "L%d: can't add, stack too short\n", line_number);
-		exit(EXIT_FAILURE);
+		handle_error(MALLOC_ERROR, 0);
+		return;
 	}
 
-	(*stack)->next->n += (*stack)->n;
-	pop(stack, line_number);
+	new_node->n = value;
+	new_node->prev = NULL;
+	new_node->next = *stack;
+
+	if (*stack != NULL)
+		(*stack)->prev = new_node;
+
+	*stack = new_node;
 }
+
