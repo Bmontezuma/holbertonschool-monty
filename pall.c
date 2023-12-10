@@ -1,9 +1,11 @@
 #include "monty.h"
 
-void pall(stack_t **stack, unsigned int line_number)
+/**
+ * pall - Prints all values on the stack.
+ * @stack: Double pointer to the beginning of the stack.
+ */
+void pall(stack_t **stack)
 {
-	(void)line_number;
-
 	stack_t *current = *stack;
 
 	while (current)
