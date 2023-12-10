@@ -2,23 +2,24 @@
 
 int main(int argc, char *argv[])
 {
-        /* Check for number of arguments */
-        if (argc != 2)
-        {
-                fprintf(stderr, "USAGE: monty file\n");
-                return (EXIT_FAILURE);
-        }
+	/* Check for the number of arguments */
+	if (argc != 2)
+	{
+		fprintf(stderr, "USAGE: monty file\n");
+		return (EXIT_FAILURE);
+	}
 
-        /* Open file */
-        FILE *file = fopen(argv[1], "r");
-        if (!file)
-        {
-                fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
-                return (EXIT_FAILURE);
-        }
-        /* Close file */
-        fclose(file);
+	/* Open the file */
+	FILE *file = fopen(argv[1], "r");
+	if (!file)
+	{
+		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
+        	return (EXIT_FAILURE);
+	}
 
-        return (EXIT_SUCCESS);
+	/* Close the file */
+	fclose(file);
+
+	return (EXIT_SUCCESS);
 }
 
