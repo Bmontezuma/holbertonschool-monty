@@ -43,12 +43,18 @@ STACK_TOO_SHORT,
 DIVIDE_BY_ZERO,
 } ErrorType;
 
+typedef struct {
+    FILE *file;
+    unsigned int line_number;
+    char *token;
+} monty_t;
+
 /* Prototypes */
 void add(stack_t **stack, unsigned int line_number);
 void handle_error(ErrorType error_type, unsigned int line_number);
 void free_stack(stack_t **stack);
 void nop(stack_t **stack, unsigned int line_number);
-void opcode_pall(stack_t **stack, unsigned int line_number);
+void push(stack_t **stack, monty_t *monty_data, unsigned int line_number);
 void pint(stack_t **stack, unsigned int line_number);
 void pop(stack_t **stack, unsigned int line_number);
 void opcode_push(stack_t **stack, unsigned int line_number, char *value_str);
@@ -59,5 +65,8 @@ void mul(stack_t **stack, unsigned int line_number);
 void mod(stack_t **stack, unsigned int line_number);
 void rotl(stack_t **stack);
 void rotr(stack_t **stack);
+void pall(stack_t **stack, unsigned int line_number);
+int is_number(char *str);
+void push_stack(stack_t **stack, int value);
 #endif /* MONTY_H */
 
