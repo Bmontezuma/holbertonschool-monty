@@ -1,9 +1,8 @@
 #ifndef MONTY_H
 #define MONTY_H
 
-#include <stdlib.h>
 #include <stdio.h>
-#include <unistd.h>
+#include <stdlib.h>
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -15,9 +14,9 @@
  */
 typedef struct stack_s
 {
-int n;
-struct stack_s *prev;
-struct stack_s *next;
+        int n;
+        struct stack_s *prev;
+        struct stack_s *next;
 } stack_t;
 
 /**
@@ -30,43 +29,20 @@ struct stack_s *next;
  */
 typedef struct instruction_s
 {
-char *opcode;
-void (*f)(stack_t **stack, unsigned int line_number);
+        int argument;
+	char *opcode;
+        void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-typedef enum
-{
-FILE_OPEN_ERROR,
-UNKNOWN_INSTRUCTION_ERROR,
-MALLOC_ERROR,
-STACK_TOO_SHORT,
-DIVIDE_BY_ZERO,
-} ErrorType;
-
-typedef struct {
-    FILE *file;
-    unsigned int line_number;
-    char *token;
-} monty_t;
-
-/* Prototypes */
-void add(stack_t **stack, unsigned int line_number);
-void handle_error(ErrorType error_type, unsigned int line_number);
-void free_stack(stack_t **stack);
-void nop(stack_t **stack, unsigned int line_number);
-void push(stack_t **stack, monty_t *monty_data, unsigned int line_number);
+/* Function prototypes here */
+void pall(stack_t **stack, unsigned int line_number);
 void pint(stack_t **stack, unsigned int line_number);
 void pop(stack_t **stack, unsigned int line_number);
-void opcode_push(stack_t **stack, unsigned int line_number, char *value_str);
 void swap(stack_t **stack, unsigned int line_number);
-void sub(stack_t **stack, unsigned int line_number);
-void monty_div(stack_t **stack, unsigned int line_number);
-void mul(stack_t **stack, unsigned int line_number);
-void mod(stack_t **stack, unsigned int line_number);
-void rotl(stack_t **stack);
-void rotr(stack_t **stack);
-void pall(stack_t **stack, unsigned int line_number);
-int is_number(char *str);
-void push_stack(stack_t **stack, int value);
+void add(stack_t **stack, unsigned int line_number);
+void nop(stack_t **stack, unsigned int line_number);
+void push(stack_t **stack, int line_number, int value);
+void free_stack(stack_t **stack);
+int parse_instruction(char *line, instruction_t *instruction);
 #endif /* MONTY_H */
 
