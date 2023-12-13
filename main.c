@@ -1,55 +1,43 @@
 #include "monty.h"
 
 /**
- * main - Entry point for the Monty interpreter
- * @argc: Number of command-line arguments
- * @argv: Array of command-line arguments
- * Return: Always 0 (Success)
+ * main - Entry point, file parsing.
+ * @argc: number of arguments.
+ * @argv: array of arguments.
+ * Return: 0 on success.
  */
 int main(int argc, char **argv)
 {
-	FILE *monty_file;
-	char *file_path;
-	size_t len = 0;
-	ssize_t read;
-	char *line = NULL;
-	unsigned int line_number = 0;
-	stack_t *stack = NULL;
-	instruction_t instruction;
+    char *line = NULL;
+    size_t len = 0;
+    FILE *file;
+    stack_t *stack = NULL;
+    unsigned int line_number = 0;
 
-	if (argc != 2)
-	{
-		fprintf(stderr, "USAGE: monty file\n");
-		exit(EXIT_FAILURE);
-	}
+    if (argc != 2)
+        print_error_and_exit(USAGE_ERROR, NULL, 0);
 
-	file_path = argv[1];
-	monty_file = fopen(file_path, "r");
+    file = fopen(argv[1], "r");
+    if (!file)
+        print_error_and_exit(FILE_ERROR, argv[1], 0);
 
-	if (!monty_file)
-	{
-		fprintf(stderr, "Error: Can't open file %s\n", file_path);
- 		exit(EXIT_FAILURE);
-	}
+    while (getline(&line, &len, file) != -1)
+    {
+        line_number++;
 
-	while ((read = getline(&line, &len, monty_file)) != -1)
-	{
-	line_number++;
-	if (parse_instruction(line, &instruction))
-	{
-		fprintf(stderr, "L%d: unknown instruction %s\n", line_number, instruction.opcode);
-		free(line);
-		fclose(monty_file);
-		free_stack(&stack);
-    exit(EXIT_FAILURE);
-        }
+        if (*line == '\n' || *line == '#')
+            continue;
 
-        instruction.f(&stack, line_number);
+        arguments.command = strtok(line, "\n ");
+        if (!arguments.command || strcmp(arguments.command, "nop") == 0)
+            continue;
+
+        arguments.value = strtok(NULL, "\n ");
+        execute_opcode(&stack, line_number);
     }
 
-    free(line);
-    fclose(monty_file);
-
+    free_resources(line, stack);
+    fclose(file);
     return 0;
 }
 
