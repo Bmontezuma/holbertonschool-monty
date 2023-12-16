@@ -1,5 +1,3 @@
-/* stack_queue.c */
-
 #include "monty.h"
 
 /**
@@ -12,7 +10,7 @@ void switch_mode(stack_t **stack, unsigned int line_number, int mode)
 {
     (void)line_number;
     (void)mode;
-
+    (void)stack;
     /* You can implement this function based on your specific needs */
     /* For example, you can set a global variable to indicate the mode */
     /* or you can modify the stack structure accordingly */
