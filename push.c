@@ -62,13 +62,25 @@ int is_integer(const char *str)
  */
 void push_handler(Node **stack, const char *value, unsigned int line_number)
 {
-	if (!is_integer(value))
-	{
-		fprintf(stderr, "L%d: usage: push integer\n", line_number);
-		stack = NULL;
-	}
-	else
-	{
-	*stack = push(*stack, atoi(value));
-	}
+    if (!is_integer(value))
+    {
+        fprintf(stderr, "L%d: usage: push integer\n", line_number);
+        exit(EXIT_FAILURE);
+    }
+
+    Node *new_node = malloc(sizeof(Node));
+    if (new_node == NULL)
+    {
+        fprintf(stderr, "Error: malloc failed\n");
+        exit(EXIT_FAILURE);
+    }
+
+    new_node->n = atoi(value);
+    new_node->prev = NULL;
+    new_node->next = *stack;
+
+    if (*stack != NULL)
+        (*stack)->prev = new_node;
+
+    *stack = new_node;
 }
