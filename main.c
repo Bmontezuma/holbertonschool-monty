@@ -33,21 +33,19 @@ int execute_monty(const char *filename)
  */
 int main(int argc, char *argv[])
 {
-	if (argc != 2)
-	{
-		fprintf(stderr, "Usage: %s <filename>\n", argv[0]);
-		return (EXIT_FAILURE);
-	}
+    if (argc != 2)
+    {
+        fprintf(stderr, "USAGE: monty file\n");
+        return EXIT_FAILURE;
+    }
 
-	char *filename = argv[1];
+    char *filename = argv[1];
+    int result = execute_monty(filename);
 
-	int result = execute_monty(filename);
+    if (result == EXIT_FAILURE)
+    {
+        fprintf(stderr, "Error: Monty execution failed\n");
+    }
 
-	if (result == EXIT_FAILURE)
-	{
-		fprintf(stderr, "Error: Monty execution failed\n");
-	}
-
-	return (result);
+    return result;
 }
-
