@@ -2,14 +2,14 @@
 
 /**
  * cleanup - Frees the memory occupied by the stack
- * @stack: Pointer to the top of the stack
+ * @stack: Double pointer to the top of the stack
  */
-void cleanup(stack_t *stack)
+void cleanup(stack_t **stack)
 {
-    while (stack)
+    while (*stack)
     {
-        stack_t *temp = stack;
-        stack = stack->next;
+        stack_t *temp = *stack;
+        *stack = (*stack)->next;
         free(temp);
     }
 }

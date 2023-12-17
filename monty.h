@@ -51,7 +51,7 @@ typedef struct Node
  * cleanup - Frees the memory occupied by the stack
  * @stack: Pointer to the top of the stack
  */
-void cleanup(stack_t *stack);
+void cleanup(stack_t **stack);
 
 /* Function prototypes */
 void *safe_malloc(size_t size);
