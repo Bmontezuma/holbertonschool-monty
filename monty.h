@@ -47,6 +47,12 @@ typedef struct Node
 	struct Node *next;
 } Node;
 
+/**
+ * cleanup - Frees the memory occupied by the stack
+ * @stack: Pointer to the top of the stack
+ */
+void cleanup(stack_t *stack);
+
 /* Function prototypes */
 void *safe_malloc(size_t size);
 void free_stack(Node *stack);
@@ -57,7 +63,6 @@ int pop(Node **stack);
 Node *push(Node *stack, int value);
 void swap_int(int *a, int *b);
 int process_instructions(const char *filename, Node **stack);
-void cleanup(stack_t *stack);
 int is_numeric(const char *str, int *value);
 #endif /* MONTY_H */
 
