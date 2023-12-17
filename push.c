@@ -65,7 +65,7 @@ void push_handler(Node **stack, const char *value, unsigned int line_number)
     if (!is_integer(value))
     {
         fprintf(stderr, "L%d: usage: push integer\n", line_number);
-        exit(EXIT_FAILURE);
+        return;
     }
 
     Node *new_node = malloc(sizeof(Node));
