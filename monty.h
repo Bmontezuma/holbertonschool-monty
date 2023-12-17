@@ -57,6 +57,7 @@ int pop(Node **stack);
 Node *push(Node *stack, int value);
 void swap_int(int *a, int *b);
 int process_instructions(const char *filename, Node **stack);
-void cleanup(Node *stack);
+void cleanup(stack_t *stack);
+int is_numeric(const char *str, int *value);
 #endif /* MONTY_H */
 

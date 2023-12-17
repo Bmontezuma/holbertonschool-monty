@@ -1,86 +1,61 @@
+// push.c
+
+#include <ctype.h>
+#include <stdlib.h>
+#include <string.h>
 #include "monty.h"
 #include <stdio.h>
-#include <stdlib.h>
 
 /**
- * push - Pushes a new node onto the stack
- * @stack: Pointer to the top of the stack
- * @value: Value to be stored in the new node
- *
- * Return: Pointer to the new top of the stack
+ * push_stack - Pushes a new node with a given value onto the stack.
+ * @stack: Double pointer to the stack
+ * @value: Value to be pushed onto the stack
  */
-Node *push(Node *stack, int value)
+void push_stack(stack_t **stack, int value)
 {
-	Node *new_node = malloc(sizeof(Node));
+    stack_t *new_node = malloc(sizeof(stack_t));
 
-	if (new_node == NULL)
-	{
-		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
-	}
-
-	new_node->n = value;
-	new_node->prev = NULL;
-	new_node->next = stack;
-
-	if (stack != NULL)
-	stack->prev = new_node;
-
-	return (new_node);
-}
-
-/**
- * is_integer - Checks if a string is a valid integer
- * @str: String to check
- * Return: 1 if integer, 0 otherwise
- */
-int is_integer(const char *str)
-{
-	if (str == NULL || *str == '\0')
-		return (0);
-
-	int i = 0;
-
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-
-	while (str[i] != '\0')
-	{
-	if (str[i] < '0' || str[i] > '9')
-		return (0);
-	i++;
-	}
-
-	return (1);
-}
-
-/**
- * push_handler - Handles the push command, ensuring correct usage
- * @stack: Pointer to the top of the stack
- * @value: String representing the value to be pushed
- * @line_number: Line number in the Monty script
- */
-void push_handler(Node **stack, const char *value, unsigned int line_number)
-{
-    if (!is_integer(value))
-    {
-        fprintf(stderr, "L%d: usage: push integer\n", line_number);
-        return;
-    }
-
-    Node *new_node = malloc(sizeof(Node));
-    if (new_node == NULL)
+    if (!new_node)
     {
         fprintf(stderr, "Error: malloc failed\n");
+        cleanup(*stack);
         exit(EXIT_FAILURE);
     }
 
-    new_node->n = atoi(value);
+    new_node->n = value;
     new_node->prev = NULL;
     new_node->next = *stack;
 
-    if (*stack != NULL)
+    if (*stack)
         (*stack)->prev = new_node;
 
     *stack = new_node;
 }
+
+/**
+ * push_handler - Handles the push operation.
+ * @stack: Double pointer to the stack
+ * @line_number: Line number of the Monty byte code file
+ */
+void push_handler(stack_t **stack, unsigned int line_number)
+{
+    char *arg = strtok(NULL, " \t\n");
+
+    if (!arg || !is_numeric(arg, NULL))
+    {
+        fprintf(stderr, "L%d: usage: push integer\n", line_number);
+        cleanup(*stack);
+        exit(EXIT_FAILURE);
+    }
+
+    int value;
+    if (!is_numeric(arg, &value))
+    {
+        fprintf(stderr, "L%d: usage: push integer\n", line_number);
+        cleanup(*stack);
+        exit(EXIT_FAILURE);
+    }
+
+    push_stack(stack, value);
+}
+
