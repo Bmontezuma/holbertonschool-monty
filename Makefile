@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -pedantic
 
-SRC = arguments.c is_number.c malloc_fail.c free_memory.c main.c stack_operations.c interpreter.c stack_operations_2.c stack_operations_3.c stream_operations.c
+SRC = add.c memory.c nop.c pall.c pint.c pop.c push.c main.c swap.c process_instructions.c cleanup.c
 OBJ = $(SRC:.c=.o)
 EXEC = monty
 

@@ -1,47 +1,53 @@
-/* main.c */
-
 #include "monty.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 /**
- * main - Entry point of the Monty program.
- * @argc: The number of command-line arguments.
- * @argv: An array of command-line argument strings.
- * Return: EXIT_SUCCESS on success, EXIT_FAILURE on failure.
+ * execute_monty - Execute the Monty interpreter logic
+ * @filename: Name of the Monty bytecode file
+ *
+ * Return: EXIT_SUCCESS on success, EXIT_FAILURE on failure
+ */
+int execute_monty(const char *filename)
+{
+	Node *stack = NULL;
+
+	if (process_instructions(filename, &stack) == EXIT_FAILURE)
+	{
+		fprintf(stderr, "Error: Failed to process Monty bytecode\n");
+		cleanup(stack); // Cleanup on failure
+		return (EXIT_FAILURE);
+	}
+
+	cleanup(stack); // Cleanup before exiting
+
+	return (EXIT_SUCCESS);
+}
+
+/**
+ * main - Entry point for the Monty interpreter
+ * @argc: Number of command-line arguments
+ * @argv: Array of command-line argument strings
+ *
+ * Return: EXIT_SUCCESS on success, EXIT_FAILURE on failure
  */
 int main(int argc, char *argv[])
 {
-    stack_t *stack = NULL;
-    monty_arguments_t args;
-    char *line = NULL;
-    size_t len = 0;
-    ssize_t read;
+	if (argc != 2)
+	{
+		fprintf(stderr, "Usage: %s <filename>\n", argv[0]);
+		return (EXIT_FAILURE);
+	}
 
-    if (argc != 2)
-    {
-        fprintf(stderr, "Usage: %s <file.m>\n", argv[0]);
-        return EXIT_FAILURE;
-    }
+	char *filename = argv[1];
 
-    args = initialize_arguments(argc, argv);
-    validate_arguments(args);
+	int result = execute_monty(filename);
 
-    /* Open and read the Monty bytecode file */
-    FILE *bytecode_file = open_bytecode_file(args.filename);
-    while ((read = getline(&line, &len, bytecode_file)) != -1)
-    {
-        char **tokens = tokenize_line(line);
-        if (tokens != NULL && tokens[0] != NULL)
-        {
-            run_instructions(tokens, &stack);
-            free_tokens(tokens);
-        }
-    }
+	if (result == EXIT_FAILURE)
+	{
+		fprintf(stderr, "Error: Monty execution failed\n");
+	}
 
-    /* Free resources */
-    free_args_tokens_stack(argc, argv, NULL, &stack);
-    free(line);
-    close_bytecode_file(bytecode_file);
-
-    return EXIT_SUCCESS;
+	return (result);
 }
 
