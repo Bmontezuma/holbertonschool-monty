@@ -3,7 +3,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -15,11 +14,10 @@
  */
 typedef struct stack_s
 {
-	int n;
-	struct stack_s *prev;
-	struct stack_s *next;
+        int n;
+        struct stack_s *prev;
+        struct stack_s *next;
 } stack_t;
-
 /**
  * struct instruction_s - opcode and its function
  * @opcode: the opcode
@@ -30,39 +28,16 @@ typedef struct stack_s
  */
 typedef struct instruction_s
 {
-	char *opcode;
-	void (*f)(stack_t **stack, unsigned int line_number);
+        char *opcode;
+        void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-/**
- * struct Node - Represents a node in the stack
- * @n: Value stored in the node
- * @prev: Pointer to the previous node in the stack
- * @next: Pointer to the next node in the stack
- */
-typedef struct Node
-{
-	int n;
-	struct Node *prev;
-	struct Node *next;
-} Node;
-
-/**
- * cleanup - Frees the memory occupied by the stack
- * @stack: Pointer to the top of the stack
- */
-void cleanup(stack_t **stack);
-
-/* Function prototypes */
-void *safe_malloc(size_t size);
-void free_stack(Node *stack);
-void nop(const void *stack);
-void pall(const Node *stack);
-void pint(const Node *stack);
-int pop(Node **stack);
-Node *push(Node *stack, int value);
-void swap_int(int *a, int *b);
-int process_instructions(const char *filename, Node **stack);
-int is_numeric(const char *str, int *value);
+/* PROTOTYPES FUNCTIONS */
+void nop(stack_t **stack, unsigned int line_number);
+void add(stack_t **stack, unsigned int line_number);
+void swap(stack_t **stack, unsigned int line_number);
+void pop(stack_t **stack, unsigned int line_number);
+void pint(stack_t **stack, unsigned int line_number);
+void pall(stack_t **stack, unsigned int line_number);
+void push(stack_t **stack, unsigned int line_number, int value);
 #endif /* MONTY_H */
-

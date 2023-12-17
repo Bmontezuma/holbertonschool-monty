@@ -1,15 +1,18 @@
 #include "monty.h"
-#include <stdio.h>
-#include <stdlib.h>
+
 /**
- * pall - Prints all the values in the stack
- * @stack: Pointer to the top of the stack
+ * pall - Prints all elements in the stack
+ * @stack: Pointer to the head of the stack
+ * @line_number: Line number in Monty byte code file
  */
-void pall(const Node *stack)
+void pall(stack_t **stack, unsigned int line_number)
 {
-    while (stack != NULL)
-    {
-        printf("%d\n", stack->n);
-        stack = stack->next;
-    }
+	stack_t *temp = *stack;
+
+	(void)line_number;
+	while (temp)
+	{
+		printf("%d\n", temp->n);
+		temp = temp->next;
+	}
 }

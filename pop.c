@@ -1,29 +1,25 @@
 #include "monty.h"
-#include <stdio.h>
-#include <stdlib.h>
+
 /**
- * pop - Removes the top node from the stack
- * @stack: Pointer to the top of the stack
- *
- * Return: Value stored in the removed node
+ * pop - Removes the top element of the stack
+ * @stack: Pointer to the head of the stack
+ * @line_number: Line number in Monty byte code file
  */
-int pop(Node **stack)
+void pop(stack_t **stack, unsigned int line_number)
 {
-	if (stack == NULL || *stack == NULL)
+	stack_t *temp;
+
+	if (*stack)
 	{
-		fprintf(stderr, "Error: stack is empty\n");
+		temp = *stack;
+		*stack = (*stack)->next;
+	if (*stack)
+		(*stack)->prev = NULL;
+	free(temp);
+	}
+	else
+	{
+		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-
-	int value = (*stack)->n;
-	Node *temp = *stack;
-
-	*stack = (*stack)->next;
-
-	if (*stack != NULL)
-		(*stack)->prev = NULL;
-
-	free(temp);
-
-	return (value);
 }
