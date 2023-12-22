@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -pedantic
 
-SRC = 
+SRC = swap.c monty.c monty_operations.c
 OBJ = $(SRC:.c=.o)
 EXEC = monty
 
