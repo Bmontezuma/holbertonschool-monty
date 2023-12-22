@@ -37,6 +37,6 @@ typedef struct instruction_s
 
 void push(stack_t **stack, int value);
 void pall(stack_t **stack);
-
+void freeStack(stack_t **stack);
 #endif /* MONTY_H */
 
