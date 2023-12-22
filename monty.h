@@ -14,6 +14,15 @@ typedef struct stack_s
     struct stack_s *next;
 } stack_t;
 
+void printStack(stack_t *stack)
+{
+    while (stack != NULL)
+    {
+        printf("%d\n", stack->n);
+        stack = stack->next;
+    }
+}
+
 /* Function prototypes */
 void push(stack_t **stack, int value);
 void pall(stack_t **stack);
