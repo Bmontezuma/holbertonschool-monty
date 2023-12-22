@@ -23,11 +23,9 @@ void printStack(stack_t *stack)
     }
 }
 
-/* Function prototypes */
-void push(stack_t **stack, int value);
-void pall(stack_t **stack);
-void printStack(stack_t *stack); // Add this line
-void swap(stack_t **stack, unsigned int line_number); // Add this line
-
+void push(stack_t **stack, int value, unsigned int line_number);
+void pall(stack_t **stack, unsigned int line_number);
+void swap(stack_t **stack, unsigned int line_number);
+void printStack(stack_t *stack);
 #endif /* MONTY_H */
 
